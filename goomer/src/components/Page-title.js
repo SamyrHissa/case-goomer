@@ -1,6 +1,6 @@
-import style from 'styled-components';
+import styled from 'styled-components';
 
-const PageTitleStyle = style.div`
+const PageTitleStyle = styled.div`
     text-align: center;
     font-size: 24px;
     font-family: Medium Montserrat;

@@ -12,6 +12,8 @@ export const RestaurantCardContainer = styled.div`
     row-gap: 5px;
     column-gap: 5px;
     padding: 10px;
+    
+    
     @media(max-width: ${breakpoints.xl}) {
         grid-template-columns: repeat(3, 1fr);
     }
