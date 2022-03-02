@@ -14,12 +14,12 @@ const SearchStyle = styled.input`
     background: #FBFBFB 0% 0% no-repeat padding-box;
     box-shadow: 0px 2px 4px #00000029;
 `;
-export const SearchBox = ({value, onChange}) => {
+export const SearchBox = ({value, onChange, title}) => {
 
     return (
         <SeachContainer>
             <SearchStyle value={value} onChange={onChange}
-                placeholder="Buscar Estabelecimento" 
+                placeholder={title} 
                 aria-label="Pesquisar" />
         </SeachContainer>
     )
