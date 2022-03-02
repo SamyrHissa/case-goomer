@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import GlobalContext from '../global/GlobalContext';
 
 
 const RestaurantCardContainer = styled.div`
@@ -14,12 +16,20 @@ const RestaurantCardContainer = styled.div`
     transition: 0.5s;
 `;
 
-export const RestaurantCard = ({name, address, id, onClick}) => {
-    const navigatin = useNavigate();
+export const RestaurantCard = ({restaurant, onClick}) => {
+    const navigation = useNavigate();
+    const { states, setters } = useContext(GlobalContext);
+    const onClickCard = (restaurant) => {
+        setters.setRestaurantSelected(restaurant);
+        navigation(`/details/${restaurant.id}`)
+    }
     return (
-        <RestaurantCardContainer onClick={()=>navigatin(`/details/${id}`)}>
-            <p>{name}</p>
-            <p>{address}</p>
+        <RestaurantCardContainer 
+            // onClick={()=>navigation(`/details/${restaurant.id}`)}
+            onClick={()=>onClickCard(restaurant)}
+            >
+            <p>{restaurant.name}</p>
+            <p>{restaurant.address}</p>
         </RestaurantCardContainer>
     )
 }
