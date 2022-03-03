@@ -1,5 +1,5 @@
 
-export const MenuCard = () => {
+export const MenuCard = ({title, image, price}) => {
     return (
         <div class="card" style="width: 18rem;">
             <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Imagem de capa do card" />

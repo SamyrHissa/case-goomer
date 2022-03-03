@@ -1,35 +1,71 @@
 import { useContext, useEffect, useState } from "react";
-import { useRequestData } from "../../hooks/useRequestData"
 import { DetailsPageContainer,
         DropdownStyle,
-        TitleDetailPageContainer
+        TitleDetailPageContainer,
+        ImageItem
     } from "./styles";
 import GlobalContext from "../../global/GlobalContext";
-import { ScheduleList } from "../../components/Schedule-list";
-import { SearchBox } from "../../components";
+import { SearchBox, ScheduleList, MenuCard } from "../../components";
 
-export const DetailsPage = ({name}) => {
-    const { states, setters } = useContext(GlobalContext);
-    const [menu, isLoadingMenu, errorMenu] = useRequestData(`https://challange.goomer.com.br/restaurants/${states.restaurantSelected.id}/menu`, []);
+export const DetailsPage = () => {
+    const { states, requests } = useContext(GlobalContext);
     const [menuGroup, setMenuGroup] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(()=>{
-        menuGroupChange();
-    }, [states.restaurantSelected])
+        requests.getMenu(states.restaurantSelected.id);
+    }, [])
 
     const onChangeSearchTerm = (e) => {
         setSearchTerm(e.target.value)
     }
-    const menuGroupChange = () => {
-        const newMenuGroup = new Set(menu.map((item)=>{
-            return item.group
-        }))
-        // setMenuGroup(newMenuGroup);
-        console.log('newMenuGroup', newMenuGroup);
+        
+    const MenuGroupChange2 = (item) => {
+        const newMenuItem = states.menu.filter((itemMenu)=>{
+            return itemMenu.group === item
+        })
+        console.log('newMenuItem', newMenuItem);
+        return (
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {newMenuItem.map((item)=>{
+                    return(
+                    <a>
+                        <ImageItem  src={item.image} alt="Imagem de capa do card"/>
+                        <p>{item.name}</p>
+                    </a>
+                    )
+                })}
+                
+                
+            </div>
+        )
     }
+    const MenuGroupChange1 = () => {
+        const newMenuGroup = Array.from(new Set(states.menu.map((item)=>{
+            return item.group
+        })));
+        // console.log('states.menu', states.menu);
+        return (
+            <DropdownStyle>
+                {newMenuGroup.map((item)=>{
+                    return(
+                        <div className="dropdown" key={item}>
+                                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {item}
+                                </button>
+                                {MenuGroupChange2(item)}
+                                
+                        </div>
+                    )
+                })}
+            </DropdownStyle>
+        )
+    };
+    
     return (
         
         <DetailsPageContainer >
+            {states.restaurantSelected && 
             <TitleDetailPageContainer className="card" >
                 <img style={{width: "12rem"}}  src={states.restaurantSelected.image} alt="Imagem de capa do card"/>
                     {/* <div >Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</div> */}
@@ -41,24 +77,10 @@ export const DetailsPage = ({name}) => {
                         </ul>
                     </div>
                     
-            </TitleDetailPageContainer>
+            </TitleDetailPageContainer>}
             <SearchBox value={searchTerm} onChange={onChangeSearchTerm} title='Buscar cardápio' />
-            
-            <DropdownStyle className="btn-group">
-            {/* {menuGroup.map((menu)=>  */}
-            <button style={{width: "100%", textAlign: "end"}} type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {/* {menu.group} */}
-                ação
-            </button>
-            {/* )} */}
-            {/* <div className="dropdown-menu">
-                <a className="dropdown-item" href="">Alguma ação</a>
-                <a className="dropdown-item" href="">Outra ação</a>
-                <a className="dropdown-item" href="">Alguma coisa aqui</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="">Link separado</a>
-            </div>  */}
-            </DropdownStyle>
+                {MenuGroupChange1()}
+                
         </DetailsPageContainer>
     )
 }

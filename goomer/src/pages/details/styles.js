@@ -13,5 +13,13 @@ export const TitleDetailPageContainer = styled.div`
     border: 1px solid red;
 `;
 export const DropdownStyle = styled.div`
-    width: 60%;
+    display: grid;
+    row-gap: 5px;
+    column-gap: 5px;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid black;
+`;
+export const ImageItem = styled.img`
+    width: 50px;
 `;
