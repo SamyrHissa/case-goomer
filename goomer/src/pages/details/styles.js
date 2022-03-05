@@ -6,7 +6,7 @@ export const DetailsPageContainer = styled.div`
     /* justify-content: center; */
     /* align-items: center; */
 `;
-export const TitleDetailPageContainer = styled.div`
+export const RestaurantDetailPageContainer = styled.div`
     width: 90%;
     display: flex;
     flex-direction: row;
