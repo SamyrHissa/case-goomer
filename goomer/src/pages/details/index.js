@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { DetailsPageContainer,
         DropdownStyle,
-        TitleDetailPageContainer,
+        RestaurantDetailPageContainer,
         ImageItem
     } from "./styles";
 import GlobalContext from "../../global/GlobalContext";
 import { SearchBox, ScheduleList, MenuCard } from "../../components";
+import { RestaurantDetailCard } from "../../components/Restaurant-Detail-Card";
 
 export const DetailsPage = () => {
     const { states, requests } = useContext(GlobalContext);
@@ -66,18 +67,23 @@ export const DetailsPage = () => {
         
         <DetailsPageContainer >
             {states.restaurantSelected && 
-            <TitleDetailPageContainer className="card" >
-                <img style={{width: "12rem"}}  src={states.restaurantSelected.image} alt="Imagem de capa do card"/>
-                    {/* <div >Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</div> */}
-                    <div className="card-body">
-                        <h4 className="card-title">{states.restaurantSelected.name}</h4>
-                        <p className="card-text">{states.restaurantSelected.address}</p>
-                        <ul className="list-group list-group-flush">
-                            {states.restaurantSelected.hours ? states.restaurantSelected.hours.map((hour, item)=><ScheduleList key={item}  hours={hour}/>):<></>}
-                        </ul>
-                    </div>
+                <RestaurantDetailCard image={states.restaurantSelected.image} 
+                    name={states.restaurantSelected.name} 
+                    address={states.restaurantSelected.address} 
+                    hours={states.restaurantSelected.hours} />
+            // <RestaurantDetailPageContainer className="card" >
+            //     <img style={{width: "12rem"}}  src={states.restaurantSelected.image} alt="Imagem de capa do card"/>
+            //         {/* <div >Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</div> */}
+            //         <div className="card-body">
+            //             <h4 className="card-title">{states.restaurantSelected.name}</h4>
+            //             <p className="card-text">{states.restaurantSelected.address}</p>
+            //             <ul className="list-group list-group-flush">
+            //                 {states.restaurantSelected.hours ? states.restaurantSelected.hours.map((hour, item)=><ScheduleList key={item}  hours={hour}/>):<></>}
+            //             </ul>
+            //         </div>
                     
-            </TitleDetailPageContainer>}
+            // </RestaurantDetailPageContainer>
+            }
             <SearchBox value={searchTerm} onChange={onChangeSearchTerm} title='Buscar cardápio' />
                 {MenuGroupChange1()}
                 
