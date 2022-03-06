@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const DetailsPageContainer = styled.div`
     width: 100vw;
+    padding: 30px;
+    
     /* text-align: center; */
     /* justify-content: center; */
     /* align-items: center; */
@@ -11,6 +13,7 @@ export const RestaurantDetailPageContainer = styled.div`
     display: flex;
     flex-direction: row;
     border: 1px solid red;
+    justify-self: center;
 `;
 export const DropdownStyle = styled.div`
     display: grid;
