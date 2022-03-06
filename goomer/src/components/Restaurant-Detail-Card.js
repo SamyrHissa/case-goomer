@@ -6,6 +6,8 @@ export const RestaurantDetailPageContainer = styled.div`
     display: flex;
     flex-direction: row;
     border: 1px solid red;
+    padding: 10px;
+    margin: 0 auto;
 `;
 
 export const RestaurantDetailCard = ({image, name, address, hours}) => {
