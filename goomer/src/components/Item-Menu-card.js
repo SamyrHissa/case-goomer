@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ScheduleList } from "./Schedule-list";
 
 export const MenuCardContainer = styled.div`
     display: flex;
@@ -10,9 +11,6 @@ export const MenuCardContainer = styled.div`
     .card-description {
         justify-content: space-between;
     }
-    .card-title {
-        /* margin-top: 15px; */
-    }
 `;
 const DescripitionSalesStyle = styled.div`
     border: 1px ;
@@ -21,7 +19,6 @@ const DescripitionSalesStyle = styled.div`
     color: #FFFFFF;
     padding: 5px;
     margin-left: 20px;
-    /* height : 30px; */
 `;
 const PriceSalesStyle = styled.div`
     display: flex;
@@ -29,24 +26,28 @@ const PriceSalesStyle = styled.div`
         text-decoration: line-through;
     }
     >h5 {
-        /* text-Decoration-Color: #009CA3; */
         margin-right: 15px;
     }
     
 
 `;
 export const ItemMenuCard = ({title, image, price, sales}) => {
-    // console.log("sales", sales);
     return (
-        <MenuCardContainer className="card" 
-        // style={{width: "9rem"}}
-        >
+        <MenuCardContainer className="card">
             <img className="card-img-left"  style={{width: "6rem"}} src={image} alt="Imagem do item do menu" />
             
             <div className="card-body">
                 <div className="card-description" style={{display: "flex"}}>
                     <h6 className="card-title">{title}</h6>
-                    {sales && <DescripitionSalesStyle>{sales[0].description}</DescripitionSalesStyle>}
+                    {sales && 
+                        <div>
+                            <DescripitionSalesStyle>{sales[0].description}</DescripitionSalesStyle>
+                            {sales[0].hours ? 
+                                <ul>
+                                  {sales[0].hours.map((hour, item)=><ScheduleList key={item}  hours={hour}/>)}
+                                </ul> : <>eu</>}
+                        </div>
+}
                 </div>
                 {(sales) 
                     ?   <PriceSalesStyle >
@@ -55,7 +56,7 @@ export const ItemMenuCard = ({title, image, price, sales}) => {
                         </PriceSalesStyle>                        
                     : price && <p className="card-text">R$ {price.toFixed(2)}</p>}
             </div>
-
+            
             
         </MenuCardContainer>
     )

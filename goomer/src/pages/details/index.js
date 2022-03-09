@@ -5,10 +5,13 @@ import { DetailsPageContainer,
 import GlobalContext from "../../global/GlobalContext";
 import { SearchBox, ItemMenuCard } from "../../components";
 import { RestaurantDetailCard } from "../../components/Restaurant-Detail-Card";
+import { FoodCard } from "../../components/Food-card";
+
 
 export const DetailsPage = () => {
     const { states, requests } = useContext(GlobalContext);
     const [searchTerm, setSearchTerm] = useState('');
+    const [itemSelected, setItemSelected] = useState(false);
 
     useEffect(()=>{
         requests.getMenu(states.restaurantSelected.id);
@@ -23,17 +26,21 @@ export const DetailsPage = () => {
         if(item.toUpperCase().includes(searchTerm.toUpperCase())) return true;
         return false;
     }
+    const selectItem = (foodSelected) => {
+        console.log('passei aqui', foodSelected);
+        setItemSelected(!itemSelected);
+    }
     const ItemMenuGroup = (item) => {
         const newMenuItem = states.menu.filter((itemMenu)=>{
             return itemMenu.group === item
         })
         // console.log('states.menu',states.menu);
         return (
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {newMenuItem.map((prato, item)=>{
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                {newMenuItem.map((food, item)=>{
                     return(
-                    <div key={item}>
-                        <ItemMenuCard title={prato.name} image={prato.image} price={prato.price} sales={prato.sales}/>
+                    <div key={item} onClick={()=>selectItem(food)}  data-toggle="modal" data-target="#ExemploModalCentralizado">
+                        <ItemMenuCard title={food.name} image={food.image} price={food.price} sales={food.sales} />
                     </div>
                     )
                 })}
@@ -72,6 +79,7 @@ export const DetailsPage = () => {
                     hours={states.restaurantSelected.hours} />}
                 <SearchBox value={searchTerm} onChange={onChangeSearchTerm} title='Buscar cardápio' />
                 {MenuGroup()}
+                {itemSelected && <FoodCard unSelectFood={()=>selectItem()} />}
         </DetailsPageContainer>
     )
 }
