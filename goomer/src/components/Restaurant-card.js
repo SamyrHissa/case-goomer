@@ -22,7 +22,7 @@ const RestaurantCardContainer = styled.div`
     
 `;
 
-export const RestaurantCard = ({restaurant, onClick}) => {
+export const RestaurantCard = ({restaurant}) => {
     const navigation = useNavigate();
     const { setters } = useContext(GlobalContext);
     const onClickCard = (restaurant) => {

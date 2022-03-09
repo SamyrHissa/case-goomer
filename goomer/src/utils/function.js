@@ -49,6 +49,9 @@ export const openingDays = (days) => {
         for(let item = 0; item < days.length - 1; item++){
             result = result + dayOfWeek(days[item]) + ', ';
         }
+        if(days.length === 1){
+            return dayOfWeek(days[0]) + '.';
+        }
         result = result.substring(0, result.lastIndexOf(','));
         result = result + ' e ' + dayOfWeek(days[days.length - 1]) + '.';
         return result
