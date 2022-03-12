@@ -8,6 +8,8 @@ const GlobalStatesContext = (props) => {
     const [restaurants, isLoadingRestaurant, errorRestaurant] = useRequestData('https://challange.goomer.com.br/restaurants', []);
     const [restaurantSelected, setRestaurantSelected] = useState();
     const [menu, setMenu] = useState([])
+    const [foodSelected, setFoodSelected] = useState();
+    const [ shoppingCart, setShoppingCart ] = useState([]);
     
     // const [menu, isLoadingMenu, errorMenu] = useRequestData(`https://challange.goomer.com.br/restaurants/${restaurantSelected.id}/menu`, []);
 
@@ -22,15 +24,22 @@ const GlobalStatesContext = (props) => {
                 console.log(err)
             })
     }
-    const states = { restaurants, restaurantSelected, menu }
-    const setters = { setRestaurantSelected }
+    const addCartItem = (cartItem) => {
+        
+        const newShoppingCart = [...shoppingCart, cartItem];
+    
+        setShoppingCart(newShoppingCart);
+    }
+
+    const states = { restaurants, restaurantSelected, menu, foodSelected, shoppingCart }
+    const setters = { setRestaurantSelected, setFoodSelected, setShoppingCart }
     const requests = {
         getMenu
     }
-    
+    const functions = { addCartItem }
     
     return (
-        <GlobalContext.Provider value={{states, setters, requests}}>
+        <GlobalContext.Provider value={{ states, setters, requests, functions }}>
             {props.children}
         </GlobalContext.Provider>
     )
