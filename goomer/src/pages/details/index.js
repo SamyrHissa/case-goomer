@@ -3,13 +3,13 @@ import { DetailsPageContainer,
         DropdownStyle
     } from "./styles";
 import GlobalContext from "../../global/GlobalContext";
-import { SearchBox, ItemMenuCard } from "../../components";
-import { RestaurantDetailCard } from "../../components/Restaurant-Detail-Card";
-import { FoodCard } from "../../components/Food-card";
+import { SearchBox, ItemMenuCard, RestaurantDetailCard, FoodCard } from "../../components";
+// import { RestaurantDetailCard } from "../../components/Restaurant-Detail-Card";
+// import { FoodCard } from "../../components/Food-card";
 
 
 export const DetailsPage = () => {
-    const { states, requests } = useContext(GlobalContext);
+    const { states, setters, requests } = useContext(GlobalContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [itemSelected, setItemSelected] = useState(false);
 
@@ -27,14 +27,15 @@ export const DetailsPage = () => {
         return false;
     }
     const selectItem = (foodSelected) => {
-        console.log('passei aqui', foodSelected);
+        setters.setFoodSelected(foodSelected);
+        if(itemSelected){
+        }
         setItemSelected(!itemSelected);
     }
     const ItemMenuGroup = (item) => {
         const newMenuItem = states.menu.filter((itemMenu)=>{
             return itemMenu.group === item
         })
-        // console.log('states.menu',states.menu);
         return (
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" >
                 {newMenuItem.map((food, item)=>{
