@@ -79,7 +79,7 @@ export const DetailsPage = () => {
                     address={states.restaurantSelected.address} 
                     hours={states.restaurantSelected.hours} />}
                 <SearchBox value={searchTerm} onChange={onChangeSearchTerm} title='Buscar cardápio' />
-                {MenuGroup()}
+                <MenuGroup filterMenus={filterMenus}/>
                 {itemSelected && <FoodCard unSelectFood={()=>selectItem()} />}
         </DetailsPageContainer>
     )

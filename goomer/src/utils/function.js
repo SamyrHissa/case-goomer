@@ -57,3 +57,28 @@ export const openingDays = (days) => {
         return result
     }
 }
+export const openedClosened = (days) => {
+    const today = new Date();
+    const diaSemana = today.getDay() + 1;
+    const horas = today.getHours();
+    const minutos = today.getMinutes();
+    if(!days){return false};
+    let opened = false;
+    for(let day of days){
+        if(day.days.includes(diaSemana)){
+            if((day.from.substring(0,5) <= (`${horas}:${minutos}`)) && 
+                ((`${horas}:${minutos}`) <= day.to.substring(0,5))){
+                    opened = true;
+            }
+        }
+    }
+    return opened;
+}
+
+export function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
