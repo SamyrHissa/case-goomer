@@ -19,6 +19,8 @@ const DescripitionSalesStyle = styled.div`
     color: #FFFFFF;
     padding: 5px;
     margin-left: 20px;
+    text-align: center;
+    
 `;
 const PriceSalesStyle = styled.div`
     display: flex;
@@ -27,6 +29,7 @@ const PriceSalesStyle = styled.div`
     }
     >h5 {
         margin-right: 15px;
+        margin-top: 10px;
     }
     
 
