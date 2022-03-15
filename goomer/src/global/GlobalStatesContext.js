@@ -2,16 +2,36 @@ import GlobalContext from "./GlobalContext";
 import { useState } from "react";
 import { useRequestData } from "../hooks/useRequestData";
 import axios from "axios";
+import { openedClosened } from "../utils/function";
 
 
 const GlobalStatesContext = (props) => {
     const [restaurants, isLoadingRestaurant, errorRestaurant] = useRequestData('https://challange.goomer.com.br/restaurants', []);
+    const [restaurants1, setRestaurants1] = useState([]);
     const [restaurantSelected, setRestaurantSelected] = useState();
     const [menu, setMenu] = useState([])
     const [foodSelected, setFoodSelected] = useState();
     const [ shoppingCart, setShoppingCart ] = useState([]);
+    const [open, setOpen] = useState(false);
     
-    // const [menu, isLoadingMenu, errorMenu] = useRequestData(`https://challange.goomer.com.br/restaurants/${restaurantSelected.id}/menu`, []);
+    const getRestaurants = () => {
+        axios
+            .get(`https://challange.goomer.com.br/restaurants`)
+            .then((res) => {
+                const data = res.data;
+                // console.log('data', data);
+                const newRestaurants = data.map((restaurant) => {
+                    restaurant.open = openedClosened(restaurant.hours);
+                    return restaurant
+                });
+                
+                // console.log('newRestaurants', newRestaurants);
+                setRestaurants1(newRestaurants)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
 
     const getMenu = (id) => {
         axios
@@ -31,9 +51,10 @@ const GlobalStatesContext = (props) => {
         setShoppingCart(newShoppingCart);
     }
 
-    const states = { restaurants, restaurantSelected, menu, foodSelected, shoppingCart }
-    const setters = { setRestaurantSelected, setFoodSelected, setShoppingCart }
+    const states = { restaurants, restaurants1, restaurantSelected, menu, foodSelected, shoppingCart, open }
+    const setters = { setRestaurants1, setRestaurantSelected, setFoodSelected, setShoppingCart, setOpen }
     const requests = {
+        getRestaurants,
         getMenu
     }
     const functions = { addCartItem }

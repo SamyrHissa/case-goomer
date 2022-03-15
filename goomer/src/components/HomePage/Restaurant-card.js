@@ -41,23 +41,34 @@ const RestaurantCardContainer = styled.div`
 
 `;
 
-export const RestaurantCard = ({restaurant}) => {
+export const RestaurantCard = ({restaurant, open}) => {
 
     const navigation = useNavigate();
-    const { setters } = useContext(GlobalContext);
-    const [open, setOpen] = useState(false);
+    const { states, setters } = useContext(GlobalContext);
+    // const [open, setOpen] = useState(false);
+
+    // useEffect(()=>{
+        // setOpen(openedClosened(restaurant.hours));
+        // console.log('passei');
+    // },[open]);
 
     const onClickCard = (restaurant) => {
         setters.setRestaurantSelected(restaurant);
         navigation(`/details/${restaurant.id}`)
     }
 
-    useEffect(()=>{
-        setOpen(openedClosened(restaurant.hours));
-    },[open]);
-    
+   
+    const verifyOpen = () => {
+        // const myInternal = setInterval(() => {
+            // setOpen(!open)
+        // }, 3000);
+        
+    }
     return (
         <RestaurantCardContainer onClick={()=>onClickCard(restaurant)}>
+            {/* <script> */}
+                {/* {setInterval(verifyOpen, 2000)} */}
+            {/* </script> */}
             <div className='description'>
                 <img className="card-img-left" src={restaurant.image} alt="Imagem de capa do card" />
                 <div>
@@ -67,7 +78,7 @@ export const RestaurantCard = ({restaurant}) => {
             </div>
             
             <div className='bothon'>
-                    {open ? `aberto` : `fechado`}
+                    {restaurant.open ? `aberto` : `fechado`}
             </div>
         </RestaurantCardContainer>
     )

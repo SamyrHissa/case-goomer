@@ -62,7 +62,7 @@ export const openedClosened = (days) => {
     const diaSemana = today.getDay() + 1;
     const horas = today.getHours();
     const minutos = today.getMinutes();
-    if(!days){return false};
+    if(!days){return true};
     let opened = false;
     for(let day of days){
         if(day.days.includes(diaSemana)){
