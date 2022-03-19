@@ -26,9 +26,6 @@ const AddButtonStyle = styled.button`
     >p {
         margin-left: 30px;
     }
-    /* align-items: center; */
-    /* justify-content:center; */
-    /* text-align: center; */
 `;
 const FooterStyle = styled.div`
     display: flex;
@@ -73,12 +70,10 @@ export const FoodCard = ({unSelectFood}) => {
     }
     return (
             <div className="modal fade" id="ExemploModalCentralizado" 
-            // tabindex="-1" 
             role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            {/* <h5 className="modal-title" id="TituloModalCentralizado">Título do modal</h5> */}
                             <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                 <span aria-hidden="true">&times;</span>
                             </button>

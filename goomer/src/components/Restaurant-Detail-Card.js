@@ -4,8 +4,9 @@ import { ScheduleList } from ".";
 export const RestaurantDetailPageContainer = styled.div`
     width: 90%;
     display: flex;
+    box-shadow: 0px 2px 4px #00000029;
+    border-radius: 4px;
     flex-direction: row;
-    border: 1px solid red;
     padding: 10px;
     margin: 0 auto;
 `;

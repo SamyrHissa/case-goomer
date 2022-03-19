@@ -4,9 +4,10 @@ import { ScheduleList } from "./Schedule-list";
 export const MenuCardContainer = styled.div`
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
+    box-shadow: 0px 2px 4px #00000029;
+    border-radius: 4px;
     padding: 10px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 10px;
     .card-description {
         justify-content: space-between;
